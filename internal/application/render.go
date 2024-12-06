@@ -1,0 +1,65 @@
+package application
+
+//
+// import (
+// 	"flame/internal/domain"
+// 	"flame/pkg"
+// 	"math"
+// 	"math/rand"
+// )
+//
+// func Render2(fractal *domain.Flame) {
+// 	var tran int
+//
+// 	k := FractalType // rand.Intn(5) // fractal.Choice[tran%fractal.Count]
+// 	for num := 0; num < fractal.Samples; num++ {
+// 		newX := pkg.RandR(fractal.XMin, fractal.XMax)
+// 		newY := pkg.RandR(fractal.YMin, fractal.YMax)
+//
+// 		for step := -20; step < int(fractal.Iterations); step++ {
+//
+// 			tran++
+// 			i := rand.Intn(fractal.N)
+//
+// 			mas := []int{10}
+// 			k = mas[rand.Intn(len(mas))]
+// 			// pa1, pa2, pa3, pa4 := fractal.Coefficients[i].PA1, fractal.Coefficients[i].PA2, fractal.Coefficients[i].PA3, fractal.Coefficients[i].PA4
+// 			c, f, b, e := fractal.Coefficients[i].CC, fractal.Coefficients[i].FC, fractal.Coefficients[i].BC, fractal.Coefficients[i].EC
+// 			ac, dc := fractal.Coefficients[i].AC, fractal.Coefficients[i].DC
+//
+// 			x := ac*newX + b*newY + c
+// 			y := dc*newX + e*newY + f
+//
+// 			newX, newY = applyTransformations(k, x, y, fractal.Coefficients[i])
+// 			if step > 0 {
+// 				for s := 0; s < fractal.Symmetry; s++ {
+// 					theta := float64(s) * (2 * math.Pi / float64(fractal.Symmetry))
+// 					xRot := newX*math.Cos(theta) - newY*math.Sin(theta)
+// 					yRot := newX*math.Sin(theta) + newY*math.Cos(theta)
+//
+// 					if xRot >= fractal.XMin && xRot <= fractal.XMax && yRot >= fractal.YMin && yRot <= fractal.YMax {
+// 						x1 := fractal.XRes - int((fractal.XMax-xRot)/fractal.RanX*float64(fractal.XRes))
+// 						y1 := fractal.YRes - int((fractal.YMax-yRot)/fractal.RanY*float64(fractal.YRes))
+//
+// 						if x1 >= 0 && x1 < fractal.XRes && y1 >= 0 && y1 < fractal.YRes {
+// 							// fractal.Lock[y1].Lock()
+// 							point := &fractal.Pixels[y1][x1]
+//
+// 							if point.Value.Counter == 0 {
+// 								point.Color.R = fractal.Coefficients[i].R
+// 								point.Color.G = fractal.Coefficients[i].G
+// 								point.Color.B = fractal.Coefficients[i].B
+// 							} else {
+// 								point.Color.R = (point.Color.R + fractal.Coefficients[i].R) / 2
+// 								point.Color.G = (point.Color.G + fractal.Coefficients[i].G) / 2
+// 								point.Color.B = (point.Color.B + fractal.Coefficients[i].B) / 2
+// 							}
+// 							point.Value.Counter++
+// 							// fractal.Lock[y1].Unlock()
+// 						}
+// 					}
+// 				}
+// 			}
+// 		}
+// 	}
+// }

@@ -27,7 +27,7 @@ var (
 	YMax            = 1.0
 	NumV            = 16
 	Samples         = 20000
-	Iterations      = 1000
+	Iterations      = 10000
 	SuperSampling   = 1
 	GammaCorrection = 2.2
 	Seed            = 1
@@ -41,18 +41,8 @@ var (
 	B               = -1
 	Invert          = false
 	Choice          = []int{0}
+	FractalType     = 1
 )
-
-//	type Coeff struct {
-//		A, B, C, D, E, F   float64 // Transformation coefficients
-//		PA1, PA2, PA3, PA4 float64
-//		R, G, B            uint8 // RGB color values
-//	}
-// type Pixel struct {
-// 	R, G, B uint8
-// 	Value   uint32
-// 	Normal  float64
-// }
 
 type HitCounter struct {
 	Counter uint32  // Number of times a pixel has been hit
@@ -305,7 +295,9 @@ func render(flame *Flame) {
 
 func randR(min, max float64) float64 {
 	return min + rand.Float64()*(max-min)
-} // writeToJPEG generates a JPEG image based on the Flame struct
+}
+
+// writeToJPEG generates a JPEG image based on the Flame struct
 func writeToJPEG(fractal *Flame, quality int) {
 	// Create the output file
 	outputFile, err := os.Create("/tmp/fractal.jpeg")
@@ -386,12 +378,13 @@ func writeToBMP(fractal *Flame) {
 func render2(fractal *Flame) {
 	var tran int
 
+	k := FractalType // rand.Intn(5) // fractal.Choice[tran%fractal.Count]
 	for num := 0; num < fractal.Samples; num++ {
 		newX := randR(fractal.XMin, fractal.XMax)
 		newY := randR(fractal.YMin, fractal.YMax)
 
 		for step := -20; step < int(fractal.Iterations); step++ {
-			k := 2 // fractal.Choice[tran%fractal.Count]
+
 			tran++
 			i := rand.Intn(fractal.N)
 
@@ -417,8 +410,108 @@ func render2(fractal *Flame) {
 				r := 1.0 / math.Sqrt(x*x+y*y)
 				newX, newY = r*(x-y)*(x+y), r*2.0*x*y
 				// Add other transformations similarly...
-			}
+			case 5: // Polar
+				newX = math.Atan2(y, x) / math.Pi
+				newY = math.Sqrt(x*x+y*y) - 1.0
+			case 6: // Handkerchief
+				r := math.Sqrt(x*x + y*y)
+				theta := math.Atan2(y, x)
+				newX = r * math.Sin(theta+r)
+				newY = r * math.Cos(theta-r)
 
+			case 7: /* Heart */
+				r := math.Sqrt(x*x + y*y)
+				theta := math.Atan2(y, x)
+				newX = r * math.Sin(theta*r)
+				newY = -r * math.Cos(theta*r)
+
+			case 8: /* Disk */
+				r := math.Sqrt(x*x+y*y) * math.Pi
+				theta := math.Atan2(y, x) / math.Pi
+				newX = theta * math.Sin(r)
+				newY = theta * math.Cos(r)
+
+			case 9: /* Spiral */
+				r := math.Sqrt(x*x + y*y)
+				theta := math.Atan2(y, x)
+				newX = (1.0 / r) * (math.Cos(theta) + math.Sin(r))
+				newY = (1.0 / r) * (math.Sin(theta) - math.Cos(r))
+
+			case 10: /* Hyperbolic */
+				r := math.Sqrt(x*x + y*y)
+				theta := math.Atan2(y, x)
+				newX = math.Sin(theta) / r
+				newY = r * math.Cos(theta)
+
+			case 11: /* Diamond */
+				r := math.Sqrt(x*x + y*y)
+				theta := math.Atan2(y, x)
+				newX = math.Sin(theta) * math.Cos(r)
+				newY = math.Cos(theta) * math.Sin(r)
+
+			case 12: /* Ex */
+				r := math.Sqrt(x*x + y*y)
+				theta := math.Atan2(y, x)
+				P0 := math.Sin(theta + r)
+				P0 = P0 * P0 * P0
+				P1 := math.Cos(theta - r)
+				P1 = P1 * P1 * P1
+				newX = r * (P0 + P1)
+				newY = r * (P0 - P1)
+
+			case 15: /* Waves */
+				newX = x + fractal.Coefficients[i].PA1*math.Sin(y/(fractal.Coefficients[i].PA2*fractal.Coefficients[i].PA2))
+				newY = y + fractal.Coefficients[i].PA3*math.Sin(x/(fractal.Coefficients[i].PA4*fractal.Coefficients[i].PA4))
+
+			case 16: /* Fisheye */
+				r := 2.0 / (1. + math.Sqrt(x*x+y*y))
+				newX = r * y
+				newY = r * x
+
+			case 17: /* Popcorn */
+				newX = x + c*math.Sin(math.Tan(3.0*y))
+				newY = y + f*math.Sin(math.Tan(3.0*x))
+
+			case 18: /* math.exponential */
+				newX = math.Exp(x-1.0) * math.Cos(math.Pi*y)
+				newY = math.Exp(x-1.0) * math.Sin(math.Pi*y)
+			case 19: /* math.power */
+				r := math.Sqrt(x*x + y*y)
+				theta := math.Atan2(y, x)
+				newX = math.Pow(r, math.Sin(theta)) * math.Cos(theta)
+				newY = math.Pow(r, math.Sin(theta)) * math.Sin(theta)
+
+			case 20: /* Comath.Sine */
+				newX = math.Cos(math.Pi*x) * math.Cosh(y)
+				newY = -math.Sin(math.Pi*x) * math.Sinh(y)
+			case 23: /* Eyefish */
+				r := 2.0 / (1. + math.Sqrt(x*x+y*y))
+				newX = r * x
+				newY = r * y
+
+			case 24: /* Bubble */
+				r := 4 + x*x + y*y
+				newX = (4.0 * x) / r
+				newY = (4.0 * y) / r
+
+			case 25: /* Cylinder */
+				newX = math.Sin(x)
+				newY = y
+
+			case 26: /* math.Tangent */
+				newX = math.Sin(x) / math.Cos(y)
+				newY = math.Tan(y)
+
+			case 27: /* Cross */
+				r := math.Sqrt(1.0 / ((x*x - y*y) * (x*x - y*y)))
+				newX = x * r
+				newY = y * r
+
+			case 28: /* Collatz */
+				newX = .25 * (1.0 + 4.0*x - (1.0+2.0*x)*math.Cos(math.Pi*x))
+				newY = .25 * (1.0 + 4.0*y - (1.0+2.0*y)*math.Cos(math.Pi*y))
+
+			}
 			if step > 0 {
 				for s := 0; s < fractal.Symmetry; s++ {
 					theta := float64(s) * (2 * math.Pi / float64(fractal.Symmetry))
@@ -505,6 +598,7 @@ func parseArgs() {
 	flag.StringVar(&PaletteFile, "p", "", "Input color palette file")
 	flag.StringVar(&CoeffFile, "c", "", "Coefficient input file")
 	flag.IntVar(&ThreadGroupSize, "T", ThreadGroupSize, "Number of threads to run")
+	flag.IntVar(&FractalType, "t", FractalType, "Fractal type")
 
 	// Handle non-standard flags
 	var choiceFlag string
@@ -549,9 +643,6 @@ func fractalInit(fractal *Flame) {
 	fractal.SuperSampling = SuperSampling
 	fractal.Iterations = int64(Iterations)
 	fractal.NumThreads = ThreadGroupSize
-	fractal.R = -1
-	fractal.G = -1
-	fractal.B = -1
 	fractal.Count = 1
 	fractal.Choice = Choice
 	fractal.Choice[0] = 0
@@ -811,9 +902,9 @@ func main() {
 	// Gamma and log correct
 	fmt.Println("Finalizing and writing out...")
 	gammaLog(&fractal)
-	// if fractal.SuperSampling > 1 {
-	// 	reduce(&fractal)
-	// }
+	if fractal.SuperSampling > 1 {
+		reduce(&fractal)
+	}
 
 	// Write out the file
 	writeToPng(&fractal, OutputPath)
