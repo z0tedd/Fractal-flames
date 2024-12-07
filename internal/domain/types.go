@@ -12,7 +12,7 @@ type Coeff struct {
 }
 
 type HitCounter struct {
-	Counter uint32  // Number of times a pixel has been hit
+	Counter int     // Number of times a pixel has been hit
 	Normal  float64 // Normalized pixel value
 }
 

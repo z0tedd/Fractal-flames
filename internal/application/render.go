@@ -6,7 +6,7 @@ import (
 	"math"
 )
 
-func applyTransformations(k int, x, y float64, Coefficient domain.Coeff) (float64, float64) {
+func applyTransformations(k int, x, y float64, Coefficient domain.Coeff) (float64, float64) { //nolint
 	var newX, newY float64
 
 	switch k {
@@ -131,13 +131,13 @@ func applyTransformations(k int, x, y float64, Coefficient domain.Coeff) (float6
 }
 
 func Render(fractal *domain.Flame) {
-	k := FractalType
+	k := fractal.FractalType
 
 	for num := 0; num < fractal.Samples; num++ {
-		newX := pkg.RandR(fractal.XMin, fractal.XMax)
-		newY := pkg.RandR(fractal.YMin, fractal.YMax)
+		newX := pkg.RandRange(fractal.XMin, fractal.XMax)
+		newY := pkg.RandRange(fractal.YMin, fractal.YMax)
 
-		for step := -20; step < int(fractal.Iterations); step++ {
+		for step := -20; step < fractal.Iterations; step++ {
 			i := pkg.RandInt(fractal.NumV)
 
 			c, f, b, e := fractal.Coefficients[i].CC, fractal.Coefficients[i].FC, fractal.Coefficients[i].BC, fractal.Coefficients[i].EC

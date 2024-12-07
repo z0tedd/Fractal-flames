@@ -34,20 +34,19 @@ func CoeffInit(fractal *domain.Flame) {
 		fractal.Coefficients[i].Color = fractal.StandartColor
 
 		if fractal.StandartColor.R == 0 {
-			fractal.Coefficients[i].Color.R = pkg.RandRangeUINT8(fractal.MinColorRange.R, fractal.MaxColorRange.R)
+			fractal.Coefficients[i].Color.R = pkg.RandRangeUint8(fractal.MinColorRange.R, fractal.MaxColorRange.R)
 		}
 
 		if fractal.StandartColor.G == 0 {
-			fractal.Coefficients[i].Color.G = pkg.RandRangeUINT8(fractal.MinColorRange.G, fractal.MaxColorRange.G)
+			fractal.Coefficients[i].Color.G = pkg.RandRangeUint8(fractal.MinColorRange.G, fractal.MaxColorRange.G)
 		}
 
 		if fractal.StandartColor.B == 0 {
-			fractal.Coefficients[i].Color.B = pkg.RandRangeUINT8(fractal.MinColorRange.B, fractal.MaxColorRange.B)
+			fractal.Coefficients[i].Color.B = pkg.RandRangeUint8(fractal.MinColorRange.B, fractal.MaxColorRange.B)
 		}
 	}
 
 	if fractal.Debug {
-
 		fmt.Println("Coefficients")
 		// Print coefficients for debugging
 		for _, coeff := range fractal.Coefficients {

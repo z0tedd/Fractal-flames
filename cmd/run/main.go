@@ -4,18 +4,10 @@ import (
 	"flame/internal/application"
 	"flame/internal/infrastructure/writers"
 	"fmt"
-	"math/rand"
-	"strings"
-	"time"
+	"os"
 )
 
-type ImageWriter interface {
-	Write() error
-}
-
 func main() {
-	// Seed the randomizer
-	rand.Seed(time.Now().UnixNano())
 	// Parse arguments from the command line
 	config := application.ParseArgs()
 	// Initialize our Flame Fractal
@@ -30,18 +22,15 @@ func main() {
 
 	// Gamma and log correct
 	fmt.Println("Finalizing and writing out...")
-	application.GammaLog(fractal)
+	application.GammaLog(fractal, fractal.Config)
 	// Write out the file
-	var w ImageWriter
-	switch {
-	case strings.Contains(config.OutputPath, "png"):
-		w = writers.NewPngWriter(fractal, config)
-	case strings.Contains(config.OutputPath, "jpeg"):
-		w = writers.NewJpegWriter(fractal, config, 90)
-	case strings.Contains(config.OutputPath, "bmp"):
-		w = writers.NewBmpWriter(fractal, config)
+	w := writers.NewDefaultWriter(fractal, config, 100)
+
+	err := w.Write()
+	if err != nil {
+		fmt.Printf("Program doesn't write file, error: %s\n", err.Error())
+		os.Exit(2)
 	}
 
-	w.Write()
 	fmt.Println("Done!")
 }

@@ -3,3 +3,8 @@ filename: "{{.InterfaceName | snakecase}}.go"
 mockname: "{{.InterfaceName | firstUpper}}"
 outpkg: mocks
 packages:
+  flame/internal/application:
+    config:
+      dir: pkg/mocks
+    interfaces:
+      Canvas:

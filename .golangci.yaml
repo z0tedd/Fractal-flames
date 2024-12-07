@@ -27,7 +27,7 @@ linters:
     - nakedret
     - nolintlint
     - rowserrcheck
-    - exportloopref
+    # - exportloopref
     - staticcheck
     - stylecheck
     - typecheck
@@ -60,6 +60,8 @@ linters-settings:
 
 issues:
   exclude-rules:
+    # - path: "mocks/"
+    #   linters: disable-all
     - path: "_test.go"
       linters:
         - funlen

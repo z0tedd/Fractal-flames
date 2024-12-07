@@ -10,7 +10,7 @@ type Canvas interface {
 }
 
 // Apply gamma correction and logarithmic normalization.
-func GammaLog(fractal Canvas) {
+func GammaLog(fractal Canvas, config *domain.Config) {
 	mx := 0.0
 	canvas := fractal.Canvas()
 	XRes, YRes := len(canvas[0]), len(canvas)
@@ -33,7 +33,7 @@ func GammaLog(fractal Canvas) {
 		for col := 0; col < XRes; col++ {
 			pixel := &canvas[row][col]
 			pixel.Value.Normal /= mx
-			gammaFactor := math.Pow(float64(pixel.Value.Normal), 1.0/GammaCorrection)
+			gammaFactor := math.Pow(float64(pixel.Value.Normal), 1.0/config.GammaCorrection)
 			pixel.Color.R = uint8(float64(pixel.Color.R) * gammaFactor)
 			pixel.Color.G = uint8(float64(pixel.Color.G) * gammaFactor)
 			pixel.Color.B = uint8(float64(pixel.Color.B) * gammaFactor)
