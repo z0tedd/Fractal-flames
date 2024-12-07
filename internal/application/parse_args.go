@@ -3,7 +3,7 @@ package application
 import (
 	"flag"
 	"fmt"
-	"strconv"
+	"runtime"
 	"time"
 )
 
@@ -17,13 +17,10 @@ var (
 	NumV            = 16
 	Samples         = 20000
 	Iterations      = 10000
-	SuperSampling   = 1
 	GammaCorrection = 2.2
 	Seed            = 1
 	OutputPath      = "/tmp/fractal.png"
-	ThreadGroupSize = 9
-	PaletteFile     = ""
-	CoeffFile       = ""
+	ThreadGroupSize = runtime.NumCPU()
 	Symmetry        = 1
 	R               = -1
 	G               = -1
@@ -51,17 +48,9 @@ func ParseArgs() {
 	flag.IntVar(&R, "r", -1, "Static RED channel value")
 	flag.IntVar(&G, "g", -1, "Static GREEN channel value")
 	flag.IntVar(&B, "b", -1, "Static BLUE channel value")
-	flag.IntVar(&SuperSampling, "sup", SuperSampling, "Super sample NUM^2 buckets")
 	flag.Float64Var(&GammaCorrection, "G", GammaCorrection, "Correctional gamma factor")
-	flag.StringVar(&PaletteFile, "p", "", "Input color palette file")
-	flag.StringVar(&CoeffFile, "c", "", "Coefficient input file")
 	flag.IntVar(&ThreadGroupSize, "T", ThreadGroupSize, "Number of threads to run")
-	flag.IntVar(&FractalType, "t", FractalType, "Fractal type")
-
-	// Handle non-standard flags
-	var choiceFlag string
-
-	flag.StringVar(&choiceFlag, "v", "0", "Use equation by number")
+	flag.IntVar(&FractalType, "t", FractalType, "Fractal type, use equation by number")
 
 	// Custom usage message
 	flag.Usage = func() {
@@ -70,19 +59,6 @@ func ParseArgs() {
 
 	// Parse command-line arguments
 	flag.Parse()
-
-	// Apply parsed flags
-
-	// Parse -v (choice of equations)
-	if choiceFlag != "" {
-		for _, v := range flag.Args() {
-			num, err := strconv.Atoi(v)
-			fmt.Print(num, " ")
-			if err == nil {
-				Choice = append(Choice, num)
-			}
-		}
-	}
 }
 
 func printUsage() {
@@ -105,12 +81,9 @@ func printUsage() {
 	fmt.Println("\t-r NUM\t\t\tSet static RED channel value (0-255)")
 	fmt.Println("\t-g NUM\t\t\tSet static GREEN channel value (0-255)")
 	fmt.Println("\t-b NUM\t\t\tSet static BLUE channel value (0-255)")
-	fmt.Printf("\t-sup NUM\t\tSuper sample NUM^2 buckets (default: %d)\n", SuperSampling)
 	fmt.Printf("\t-G NUM\t\t\tCorrectional gamma factor (default: %f)\n", GammaCorrection)
-	fmt.Println("\t-p FILE\t\t\tUse input color palette file")
-	fmt.Println("\t-c FILE\t\t\tUse coefficient input file")
 	fmt.Printf("\t-T THREADS\t\tNumber of threads to run (default: %d)\n", ThreadGroupSize)
 	fmt.Println("\t-v NUM\t\t\tUse equation by number (see below for options)")
-	fmt.Println("\nTransformation values for -v:")
+	fmt.Println("\nTransformation values for -t:")
 	fmt.Println("\t0: Linear, 1: Sinusoidal, 2: Spherical, 3: Swirl, 4: Horseshoe, ...")
 }

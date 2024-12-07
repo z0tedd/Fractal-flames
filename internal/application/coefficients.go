@@ -4,7 +4,6 @@ import (
 	"flame/internal/domain"
 	"flame/pkg"
 	"fmt"
-	"log"
 )
 
 // Initialize coefficients for the fractal.
@@ -34,52 +33,16 @@ func CoeffInit(fractal *domain.Flame) {
 		// Assign colors.
 		fractal.Coefficients[i].Color = fractal.Color
 
-		if fractal.Color.R == 255 {
-			fractal.Coefficients[i].Color.R = uint8(pkg.RandRange(64, 255))
+		if fractal.Color.R == 0 {
+			fractal.Coefficients[i].Color.R = pkg.RandRangeUINT8(128, 255)
 		}
 
-		if fractal.Color.G == 255 {
-			fractal.Coefficients[i].Color.G = uint8(pkg.RandRange(64, 255))
+		if fractal.Color.G == 0 {
+			fractal.Coefficients[i].Color.G = pkg.RandRangeUINT8(0, 128)
 		}
 
-		if fractal.Color.B == 255 {
-			fractal.Coefficients[i].Color.B = uint8(pkg.RandRange(64, 255))
-		}
-	}
-
-	// Load palette file if provided
-	if fractal.PaletteFile != nil {
-		i := 0
-
-		var r, g, b uint8
-		for _, err := fmt.Fscanf(fractal.PaletteFile, "%d %d %d\n", &r, &g, &b); err == nil && i < fractal.N; {
-			fractal.Coefficients[i].Color.R = r
-			fractal.Coefficients[i].Color.G = g
-			fractal.Coefficients[i].Color.B = b
-			fmt.Printf("Setting index %d to %d,%d,%d\n", i, r, g, b)
-
-			i++
-		}
-
-		err := fractal.PaletteFile.Close()
-		if err != nil {
-			log.Println("Failed to close palette file:", err)
-		}
-	}
-
-	// Load coefficients file if provided
-	if fractal.CoeffFile != nil {
-		i := 0
-		var ac, bc, cc, dc, ec, fc float64
-		for _, err := fmt.Fscanf(fractal.CoeffFile, "%f %f %f %f %f %f\n", &ac, &bc, &cc, &dc, &ec, &fc); err == nil && i < fractal.N; {
-			fractal.Coefficients[i] = domain.Coeff{AC: ac, BC: bc, CC: cc, DC: dc, EC: ec, FC: fc}
-			fmt.Printf("Setting index coeffs at index %d\n", i)
-			i++
-		}
-
-		err := fractal.CoeffFile.Close()
-		if err != nil {
-			log.Println("Failed to close coefficients file:", err)
+		if fractal.Color.B == 0 {
+			fractal.Coefficients[i].Color.B = pkg.RandRangeUINT8(0, 128)
 		}
 	}
 
@@ -89,6 +52,7 @@ func CoeffInit(fractal *domain.Flame) {
 	}
 
 	fmt.Println("Colors")
+
 	for _, coeff := range fractal.Coefficients {
 		fmt.Printf("%v\n", coeff.Color)
 	}

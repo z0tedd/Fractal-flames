@@ -3,7 +3,6 @@ package application
 import (
 	"flame/internal/domain"
 	"flame/pkg"
-	"math/rand/v2"
 )
 
 // Contractive mapping function.
@@ -13,7 +12,7 @@ func contractiveMapping(coeff *domain.Coeff) {
 	for {
 		// Generate valid values for a, d
 		for {
-			a = rand.Float64()
+			a = pkg.RandFloat()
 			d = pkg.RandRange(a*a, 1)
 
 			if pkg.RandomBit() == 1 {
@@ -27,7 +26,7 @@ func contractiveMapping(coeff *domain.Coeff) {
 
 		// Generate valid values for b, e
 		for {
-			b = rand.Float64()
+			b = pkg.RandFloat()
 			e = pkg.RandRange(b*b, 1)
 
 			if pkg.RandomBit() == 1 {

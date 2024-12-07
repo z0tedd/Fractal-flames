@@ -2,7 +2,6 @@ package domain
 
 import (
 	"image/color"
-	"os"
 	"sync"
 )
 
@@ -14,13 +13,11 @@ type HitCounter struct {
 type Pixel struct {
 	Value HitCounter
 	Color color.RGBA // RGB color for a pixel
+	Lock  sync.Mutex
 }
 
 type Flame struct {
 	File string
-
-	CoeffFile   *os.File
-	PaletteFile *os.File
 
 	Coefficients []Coeff
 	Locks        []sync.Mutex
@@ -36,13 +33,11 @@ type Flame struct {
 
 	XRes, YRes int
 
-	// R, G, B       uint8
-	N             int // Number of equations
-	SuperSampling int
-	Samples       int
-	NumThreads    int
-	Symmetry      int
-	Count         int
-	Invert        bool
-	Color         color.RGBA
+	N          int // Number of equations
+	Samples    int
+	NumThreads int
+	Symmetry   int
+	Count      int
+	Invert     bool
+	Color      color.RGBA
 }

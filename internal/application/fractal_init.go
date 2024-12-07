@@ -22,14 +22,14 @@ func FractalInit(fractal *domain.Flame) {
 	fractal.Symmetry = Symmetry
 	fractal.Invert = Invert
 	fractal.File = OutputPath
-	fractal.SuperSampling = SuperSampling
 	fractal.Iterations = int64(Iterations)
 	fractal.NumThreads = ThreadGroupSize
-	fractal.Color = color.RGBA{255, 255, 255, 255}
+	fractal.Color = color.RGBA{0, 0, 0, 255}
 
 	fractal.Count = 1
 	fractal.Choice = Choice
 	fractal.Choice[0] = 0
+
 	if fractal.XRes <= 0 {
 		fractal.XRes = XRes
 	}
@@ -37,8 +37,7 @@ func FractalInit(fractal *domain.Flame) {
 	if fractal.YRes <= 0 {
 		fractal.YRes = YRes
 	}
-	fractal.XRes *= fractal.SuperSampling
-	fractal.YRes *= fractal.SuperSampling
+
 	fractal.Pixels = make([][]domain.Pixel, fractal.YRes)
 	fractal.Locks = make([]sync.Mutex, fractal.YRes)
 

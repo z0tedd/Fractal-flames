@@ -21,3 +21,15 @@ func RandRange(mn, mx float64) float64 {
 func RandR(mn, mx float64) float64 {
 	return mn + rand.Float64()*(mx-mn)
 }
+
+func RandRangeUINT8(mn, mx int) uint8 {
+	return uint8(mn + rand.Intn(mx-mn))
+}
+
+func RandInt(n int) int {
+	return rand.Intn(n)
+}
+
+func RandFloat() float64 {
+	return rand.Float64()
+}

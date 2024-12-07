@@ -11,8 +11,6 @@ import (
 
 func main() {
 	var fractal domain.Flame
-	// var wg sync.WaitGroup
-
 	// Parse arguments from the command line
 	fmt.Println("Parsing user arguments...")
 	application.ParseArgs()
@@ -34,14 +32,12 @@ func main() {
 	fmt.Println("Done!")
 
 	// Correct for threads
-	if fractal.NumThreads <= 0 {
-		fractal.NumThreads = 1
+	if fractal.NumThreads <= 1 {
+		application.Render(&fractal)
+	} else {
+		application.RenderMultithreading(&fractal)
 	}
 
-	fractal.Samples /= fractal.NumThreads
-
-	// render(&fractal)
-	application.Render(&fractal)
 	// Gamma and log correct
 	fmt.Println("Finalizing and writing out...")
 	application.GammaLog(&fractal)
