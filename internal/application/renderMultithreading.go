@@ -3,7 +3,6 @@ package application
 import (
 	"flame/internal/domain"
 	"flame/pkg"
-	"fmt"
 	"math"
 	"sync"
 )
@@ -22,9 +21,8 @@ func RenderMultithreading(fractal *domain.Flame) {
 		go func() {
 			defer wg.Done()
 
-			for i := range sampleChan {
+			for range sampleChan {
 				renderSample(fractal)
-				fmt.Println(i, "_____", w)
 			}
 		}()
 	}
@@ -45,7 +43,7 @@ func renderSample(fractal *domain.Flame) {
 	newY := pkg.RandR(fractal.YMin, fractal.YMax)
 
 	for step := -20; step < int(fractal.Iterations); step++ {
-		i := pkg.RandInt(fractal.N)
+		i := pkg.RandInt(fractal.NumV)
 
 		c, f, b, e := fractal.Coefficients[i].CC, fractal.Coefficients[i].FC, fractal.Coefficients[i].BC, fractal.Coefficients[i].EC
 		ac, dc := fractal.Coefficients[i].AC, fractal.Coefficients[i].DC

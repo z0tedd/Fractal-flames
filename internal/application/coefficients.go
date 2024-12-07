@@ -8,11 +8,11 @@ import (
 
 // Initialize coefficients for the fractal.
 func CoeffInit(fractal *domain.Flame) {
-	fractal.Coefficients = make([]domain.Coeff, fractal.N)
+	fractal.Coefficients = make([]domain.Coeff, fractal.NumV)
 
-	for i := 0; i < fractal.N; i++ {
+	for i := 0; i < fractal.NumV; i++ {
 		if pkg.RandomBit() == 1 {
-			contractiveMapping(&fractal.Coefficients[i])
+			ContractiveMapping(&fractal.Coefficients[i])
 		} else {
 			fractal.Coefficients[i] = domain.Coeff{
 				AC: pkg.RandRange(-1.5, 1.5),
@@ -31,29 +31,33 @@ func CoeffInit(fractal *domain.Flame) {
 		fractal.Coefficients[i].PA4 = pkg.RandRange(-2, 2)
 
 		// Assign colors.
-		fractal.Coefficients[i].Color = fractal.Color
+		fractal.Coefficients[i].Color = fractal.StandartColor
 
-		if fractal.Color.R == 0 {
-			fractal.Coefficients[i].Color.R = pkg.RandRangeUINT8(128, 255)
+		if fractal.StandartColor.R == 0 {
+			fractal.Coefficients[i].Color.R = pkg.RandRangeUINT8(fractal.MinColorRange.R, fractal.MaxColorRange.R)
 		}
 
-		if fractal.Color.G == 0 {
-			fractal.Coefficients[i].Color.G = pkg.RandRangeUINT8(0, 128)
+		if fractal.StandartColor.G == 0 {
+			fractal.Coefficients[i].Color.G = pkg.RandRangeUINT8(fractal.MinColorRange.G, fractal.MaxColorRange.G)
 		}
 
-		if fractal.Color.B == 0 {
-			fractal.Coefficients[i].Color.B = pkg.RandRangeUINT8(0, 128)
+		if fractal.StandartColor.B == 0 {
+			fractal.Coefficients[i].Color.B = pkg.RandRangeUINT8(fractal.MinColorRange.B, fractal.MaxColorRange.B)
 		}
 	}
 
-	// Print coefficients for debugging
-	for _, coeff := range fractal.Coefficients {
-		fmt.Printf("%f %f %f %f %f %f\n", coeff.AC, coeff.BC, coeff.CC, coeff.DC, coeff.EC, coeff.FC)
-	}
+	if fractal.Debug {
 
-	fmt.Println("Colors")
+		fmt.Println("Coefficients")
+		// Print coefficients for debugging
+		for _, coeff := range fractal.Coefficients {
+			fmt.Printf("%f %f %f %f %f %f\n", coeff.AC, coeff.BC, coeff.CC, coeff.DC, coeff.EC, coeff.FC)
+		}
 
-	for _, coeff := range fractal.Coefficients {
-		fmt.Printf("%v\n", coeff.Color)
+		fmt.Println("Colors")
+
+		for _, coeff := range fractal.Coefficients {
+			fmt.Printf("%v\n", coeff.Color)
+		}
 	}
 }

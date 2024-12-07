@@ -6,7 +6,7 @@ import (
 )
 
 // Contractive mapping function.
-func contractiveMapping(coeff *domain.Coeff) {
+func ContractiveMapping(coeff *domain.Coeff) {
 	var a, b, d, e float64
 
 	for {
