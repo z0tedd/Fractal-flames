@@ -42,7 +42,7 @@ func renderSample(fractal *domain.Flame) {
 	newX := pkg.RandR(fractal.XMin, fractal.XMax)
 	newY := pkg.RandR(fractal.YMin, fractal.YMax)
 
-	for step := -20; step < int(fractal.Iterations); step++ {
+	for step := -20; step < fractal.Iterations; step++ {
 		i := pkg.RandInt(fractal.NumV)
 
 		c, f, b, e := fractal.Coefficients[i].CC, fractal.Coefficients[i].FC, fractal.Coefficients[i].BC, fractal.Coefficients[i].EC
