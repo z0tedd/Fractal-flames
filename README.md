@@ -1,4 +1,4 @@
-#Отчет
+# Отчет
 ## Результаты сравнительного анализа(бенчмарк многопоточной версии и немногопоточной)
 ![image](https://github.com/user-attachments/assets/49aa3ecc-13d2-4702-b152-6026ebb12bef)
 ![image](https://github.com/user-attachments/assets/48671d0c-ccaa-4714-b741-9895f641ca6a)
