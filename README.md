@@ -1,4 +1,21 @@
-# Шаблон Go-проекта для домашних заданий
+# Отчет
+
+## Результаты сравнительного анализа(бенчмарк многопоточной версии и не многопоточной)
+
+![image](https://github.com/user-attachments/assets/49aa3ecc-13d2-4702-b152-6026ebb12bef)
+![image](https://github.com/user-attachments/assets/48671d0c-ccaa-4714-b741-9895f641ca6a)
+
+Лайки:
+
+![image](https://github.com/user-attachments/assets/3ef96ff4-cbd3-456a-a83f-2d5ac0b05d3c)
+
+Подтверждение того, что это я(никнейм тг = никнейм гитхаб):
+
+![image](https://github.com/user-attachments/assets/d63ff201-7014-48ce-8cfd-4e1c6f62f813)
+
+P.S Не обращайте внимание на комментарий к профилю, он прикола ради написан
+
+## Шаблон Go-проекта для домашних заданий
 
 Шаблон для домашних заданий [Академии Бэкенда 2024](https://edu.tinkoff.ru/all-activities/courses/870efa9d-7067-4713-97ae-7db256b73eab).
 
