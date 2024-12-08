@@ -1,9 +1,5 @@
 package main
 
-<<<<<<< HEAD
-func main() {
-	// TODO: write your code here
-=======
 import (
 	"flame/internal/application"
 	"flame/internal/infrastructure/writers"
@@ -37,5 +33,4 @@ func main() {
 	}
 
 	fmt.Println("Done!")
->>>>>>> dev
 }
