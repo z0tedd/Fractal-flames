@@ -10,9 +10,8 @@ import (
 )
 
 func TestRender(t *testing.T) {
-	// Setup a dummy flame object
 	fractal := application.NewFractal(&domain.Config{
-		FractalType:   1, // Testing with Sinusoidal transformation
+		FractalType:   1,
 		Samples:       10,
 		Iterations:    100,
 		Symmetry:      2,

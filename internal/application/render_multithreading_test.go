@@ -10,9 +10,8 @@ import (
 )
 
 func TestRender_Multithreading(t *testing.T) {
-	// Setup a dummy flame object
 	fractal := application.NewFractal(&domain.Config{
-		FractalType:   0, // Testing with Sinusoidal transformation
+		FractalType:   0,
 		Samples:       100,
 		Iterations:    100,
 		Symmetry:      2,

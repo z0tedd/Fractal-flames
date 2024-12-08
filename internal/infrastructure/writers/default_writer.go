@@ -25,7 +25,6 @@ func NewDefaultWriter(canvas application.Canvas, config *domain.Config, quality 
 }
 
 func (w DefaultWriter) Write() error {
-	// Create the output file
 	outputFile, err := os.Create(w.config.OutputPath)
 	if err != nil {
 		return fmt.Errorf("writing image: %w", err)
@@ -33,7 +32,6 @@ func (w DefaultWriter) Write() error {
 	defer outputFile.Close()
 
 	XRes, YRes := len(w.canvas[0]), len(w.canvas)
-	// Create an RGBA image
 	img := image.NewRGBA(image.Rect(0, 0, XRes, YRes))
 
 	// Populate the image pixels

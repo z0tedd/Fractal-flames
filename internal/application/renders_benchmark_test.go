@@ -9,9 +9,8 @@ import (
 )
 
 func BenchmarkDefaultRender(b *testing.B) {
-	// Setup a dummy flame object
 	fractal := application.NewFractal(&domain.Config{
-		FractalType:   10, // Testing with Sinusoidal transformation
+		FractalType:   10,
 		Samples:       2000,
 		Iterations:    10000,
 		Symmetry:      2,
@@ -36,9 +35,8 @@ func BenchmarkDefaultRender(b *testing.B) {
 }
 
 func BenchmarkMultithreadRender(b *testing.B) {
-	// Setup a dummy flame object
 	fractal := application.NewFractal(&domain.Config{
-		FractalType:   10, // Testing with Sinusoidal transformation
+		FractalType:   10,
 		Samples:       2000,
 		Iterations:    10000,
 		Symmetry:      2,
@@ -62,5 +60,5 @@ func BenchmarkMultithreadRender(b *testing.B) {
 		application.RenderMultithreading(fractal)
 	}
 
-	b.Log("Number of threads", runtime.NumCPU())
+	b.Log("Number of threads", fractal.NumThreads)
 }
