@@ -3,7 +3,7 @@ filename: "{{.InterfaceName | snakecase}}.go"
 mockname: "{{.InterfaceName | firstUpper}}"
 outpkg: mocks
 packages:
-  flame/internal/application:
+  github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/application:
     config:
       dir: pkg/mocks
     interfaces:

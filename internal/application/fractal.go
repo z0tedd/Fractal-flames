@@ -1,10 +1,10 @@
 package application
 
 import (
-	"flame/internal/domain"
+	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/domain"
 )
 
-// Initialize default flame structure values.
+// Initialize default github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd structure values.
 func NewFractal(config *domain.Config) *domain.Flame {
 	var fractal domain.Flame
 	fractal.Config = config

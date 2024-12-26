@@ -1,8 +1,6 @@
 package writers
 
 import (
-	"flame/internal/application"
-	"flame/internal/domain"
 	"fmt"
 	"image"
 	"image/color"
@@ -10,6 +8,9 @@ import (
 	"image/png"
 	"os"
 	"strings"
+
+	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/application"
+	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/domain"
 
 	"golang.org/x/image/bmp"
 )

@@ -1,12 +1,13 @@
 package writers_test
 
 import (
-	"flame/internal/domain"
-	"flame/internal/infrastructure/writers"
-	"flame/pkg/mocks"
 	"image/color"
 	"os"
 	"testing"
+
+	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/domain"
+	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/infrastructure/writers"
+	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/pkg/mocks"
 
 	"github.com/stretchr/testify/require"
 )

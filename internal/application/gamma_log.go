@@ -1,8 +1,9 @@
 package application
 
 import (
-	"flame/internal/domain"
 	"math"
+
+	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/domain"
 )
 
 type Canvas interface {

@@ -1,10 +1,11 @@
 package main
 
 import (
-	"flame/internal/application"
-	"flame/internal/infrastructure/writers"
 	"fmt"
 	"os"
+
+	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/application"
+	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/infrastructure/writers"
 )
 
 func main() {
@@ -12,13 +13,6 @@ func main() {
 	config := application.ParseArgs()
 	// Initialize our Flame Fractal
 	fractal := application.NewFractal(config)
-
-	// Correct for threads
-	if fractal.NumThreads <= 1 {
-		application.Render(fractal)
-	} else {
-		application.RenderMultithreading(fractal)
-	}
 
 	// Gamma and log correct
 	fmt.Println("Finalizing and writing out...")

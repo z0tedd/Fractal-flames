@@ -1,12 +1,13 @@
 package application_test
 
 import (
-	"flame/internal/application"
-	"flame/internal/domain"
-	"flame/pkg/mocks"
 	"image/color"
 	"math"
 	"testing"
+
+	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/application"
+	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/domain"
+	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/pkg/mocks"
 
 	"github.com/stretchr/testify/assert"
 )

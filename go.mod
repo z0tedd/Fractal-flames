@@ -1,6 +1,6 @@
-module flame
+module github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd
 
-go 1.23.1
+go 1.22.6
 
 require (
 	github.com/stretchr/testify v1.10.0

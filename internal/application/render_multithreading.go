@@ -1,13 +1,19 @@
 package application
 
 import (
-	"flame/internal/domain"
-	"flame/pkg"
 	"math"
 	"sync"
+
+	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/domain"
+	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/pkg"
 )
 
 func RenderMultithreading(fractal *domain.Flame) {
+	if fractal.NumThreads <= 0 {
+		Render(fractal)
+		return
+	}
+
 	var wg sync.WaitGroup
 
 	// Channel to distribute samples to worker goroutines

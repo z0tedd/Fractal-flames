@@ -1,7 +1,7 @@
 package application
 
 import (
-	"flame/internal/domain"
+	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/domain"
 	"math"
 )
 
