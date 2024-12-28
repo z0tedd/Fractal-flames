@@ -1,8 +1,9 @@
 package application
 
 import (
-	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/domain"
 	"math"
+
+	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/domain"
 )
 
 func applyTransformations(k int, x, y float64, Coefficient domain.Coeff) (float64, float64) { //nolint

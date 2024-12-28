@@ -1,11 +1,12 @@
 package application_test
 
 import (
-	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/application"
-	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/domain"
 	"image/color"
 	"runtime"
 	"testing"
+
+	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/application"
+	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/domain"
 )
 
 func BenchmarkDefaultRender(b *testing.B) {
