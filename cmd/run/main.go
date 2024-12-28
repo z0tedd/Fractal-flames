@@ -1,11 +1,12 @@
 package main
 
 import (
-	"fmt"
+	"log/slog"
 	"os"
 
 	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/application"
 	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/infrastructure/writers"
+	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/pkg"
 )
 
 func main() {
@@ -15,16 +16,16 @@ func main() {
 	fractal := application.NewFractal(config)
 
 	// Gamma and log correct
-	fmt.Println("Finalizing and writing out...")
+	pkg.Logger.Info("Finalizing and writing out...")
 	application.GammaLog(fractal, fractal.Config)
 	// Write out the file
 	w := writers.NewDefaultWriter(fractal, config, 100)
 
 	err := w.Write()
 	if err != nil {
-		fmt.Printf("Program doesn't write file, error: %s\n", err.Error())
+		pkg.Logger.Info("Program doesn't write file:", slog.String("error: ", err.Error()))
 		os.Exit(2)
 	}
 
-	fmt.Println("Done!")
+	pkg.Logger.Info("Done!")
 }

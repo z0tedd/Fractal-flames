@@ -1,7 +1,7 @@
 package application
 
 import (
-	"fmt"
+	"log/slog"
 
 	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/domain"
 	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/pkg"
@@ -47,17 +47,15 @@ func CoeffInit(fractal *domain.Flame) {
 		}
 	}
 
-	if fractal.Debug {
-		fmt.Println("Coefficients")
-		// Print coefficients for debugging
-		for _, coeff := range fractal.Coefficients {
-			fmt.Printf("%f %f %f %f %f %f\n", coeff.AC, coeff.BC, coeff.CC, coeff.DC, coeff.EC, coeff.FC)
-		}
+	pkg.Logger.Debug("Coefficients")
+	// Print coefficients for debugging
+	for _, coeff := range fractal.Coefficients {
+		pkg.Logger.Debug("ac,bc,cc,dc,ec,fc", slog.Any("values: ", []float64{coeff.AC, coeff.BC, coeff.CC, coeff.DC, coeff.EC, coeff.FC}))
+	}
 
-		fmt.Println("Colors")
+	pkg.Logger.Debug("Colors")
 
-		for _, coeff := range fractal.Coefficients {
-			fmt.Printf("%v\n", coeff.Color)
-		}
+	for _, coeff := range fractal.Coefficients {
+		pkg.Logger.Debug("coeff :", slog.Any("color:", coeff.Color))
 	}
 }

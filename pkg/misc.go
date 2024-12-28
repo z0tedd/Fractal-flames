@@ -2,9 +2,13 @@ package pkg
 
 import (
 	"crypto/rand"
+	"log/slog"
 	"math"
 	"math/big"
+	"os"
 )
+
+var Logger = slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo}))
 
 // clamp function to restrict values between 0 and 255.
 func Clamp(value uint) uint8 {
