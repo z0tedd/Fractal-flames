@@ -4,10 +4,10 @@ import (
 	"image/color"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/application"
 	"github.com/central-university-dev/backend_academy_2024_project_4-go-z0tedd/internal/domain"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func TestRender_Multithreading(t *testing.T) {
